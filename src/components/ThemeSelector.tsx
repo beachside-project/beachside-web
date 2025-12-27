@@ -21,17 +21,23 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ value, onChange }) => {
   }
 
   const Icon = value === 'light' ? FiSun : value === 'dark' ? FiMoon : FiMonitor
+  const themeLabels: Record<ThemeSelection, string> = {
+    light: 'Light',
+    dark: 'Dark',
+    system: 'System',
+  }
+  const currentThemeLabel = themeLabels[value] ?? String(value)
 
   return (
     <button
       type="button"
-      className="theme-toggle"
-      aria-label={`テーマ切り替え: ${value}`}
-      title={`テーマ: ${value}`}
+
+      aria-label={`Toggle theme (current: ${currentThemeLabel})`}
+      title={`Theme: ${currentThemeLabel}`}
       onClick={() => onChange(nextSelection(value))}
     >
       <Icon aria-hidden="true" focusable="false" />
-      <span className="sr-only">テーマ: {value}</span>
+      <span className="sr-only">Theme: {currentThemeLabel}</span>
     </button>
   )
 }

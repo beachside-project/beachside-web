@@ -56,7 +56,7 @@ function App() {
 
   return (
     <main className="page">
-      <div className="page-toolbar" aria-label="Theme">
+      <div className="page-toolbar" aria-label="Theme selector">
         <ThemeSelector
           value={themeSelection}
           onChange={(selection) => {

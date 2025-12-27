@@ -49,21 +49,24 @@ export function storeThemeSelection(selection: ThemeSelection): void {
 export function subscribeToSystemThemeChanges(onChange: () => void): () => void {
   const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)')
 
+  if (typeof mediaQueryList.addEventListener === 'function') {
+    mediaQueryList.addEventListener('change', onChange)
+    return () => mediaQueryList.removeEventListener('change', onChange)
+  }
+
+  // Safari (older)
+  const legacy = mediaQueryList as MediaQueryList & {
+    addListener?: (listener: (event: MediaQueryListEvent) => void) => void
+    removeListener?: (listener: (event: MediaQueryListEvent) => void) => void
+  }
+
   const handler = () => {
     onChange()
   }
 
-  if (typeof mediaQueryList.addEventListener === 'function') {
-    mediaQueryList.addEventListener('change', handler)
-    return () => mediaQueryList.removeEventListener('change', handler)
-  }
-
-  // Safari (older)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const legacy = mediaQueryList as any
   if (typeof legacy.addListener === 'function') {
     legacy.addListener(handler)
-    return () => legacy.removeListener(handler)
+    return () => legacy.removeListener?.(handler)
   }
 
   return () => {}

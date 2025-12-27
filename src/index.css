@@ -95,10 +95,16 @@ body::before {
     radial-gradient(900px circle at 20% 0%, var(--bg-grad-accent) 0%, transparent 55%),
     linear-gradient(180deg, var(--bg-grad-top) 0%, var(--bg-grad-bottom) 65%);
   transform: translateZ(0);
+  /* Apply a warm tint and boosted saturation to the background gradients in light theme:
+     - hue-rotate(-80deg): shifts the base colors toward a warmer palette
+     - saturate(1.45): makes the accent colors more vivid
+     - sepia(0.28): adds a subtle sepia cast to soften the overall look */
   filter: hue-rotate(-80deg) saturate(1.45) sepia(0.28);
 }
 
 [data-theme="dark"] body::before {
+  /* Dark theme variant of the background filter with slightly reduced intensity
+     to prevent the gradients from looking too bright or oversaturated on dark backgrounds. */
   filter: hue-rotate(-75deg) saturate(1.25) sepia(0.18);
 }
 
