@@ -6,7 +6,7 @@ const BlogLink = () => {
       <a className="bloglink"
         href="https://blog.beachside.dev/"
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
       >
         BEACHSIDE BLOG
       </a>

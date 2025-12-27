@@ -10,7 +10,7 @@ const Description = () => {
       <a className="cert-container"
         href="https://mvp.microsoft.com/ja-JP/MVP/profile/2c3e3c6b-f35a-e711-8114-3863bb2ed1f8"
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
       >
         <img className="mvp-logo"
           src={mvpLogo}

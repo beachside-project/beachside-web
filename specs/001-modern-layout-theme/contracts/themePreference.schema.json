@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beachside.dev/contracts/themePreference.schema.json",
+  "title": "ThemePreference",
+  "type": "string",
+  "description": "User-selected theme stored in localStorage key 'beachside.theme'.",
+  "enum": ["system", "light", "dark"],
+  "default": "system"
+}

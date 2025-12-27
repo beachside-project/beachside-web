@@ -108,3 +108,11 @@ dist
 .tern-port
 
 docs/
+
+# Universal
+.DS_Store
+Thumbs.db
+.idea/
+
+# dotenv (broader)
+.env.*

@@ -2,8 +2,16 @@ import BlogLink from './components/BlogLink';
 import SocialLink from './components/SocialLink';
 import CredentialLine from './components/CredentialLine'
 import Description from './components/Description'
+import ThemeSelector from './components/ThemeSelector'
 import CredentialItem from './types/CredentialItem';
 import React from 'react';
+import {
+  applyThemeSelection,
+  loadStoredThemeSelection,
+  storeThemeSelection,
+  subscribeToSystemThemeChanges,
+  ThemeSelection,
+} from './theme'
 
 import tpeLogo from './assets/tpe-2024.png';
 import ai102Logo from './assets/ai102.png';
@@ -17,8 +25,18 @@ import ghAdvancedSecurityLogo from './assets/github-advanced-security.png';
 
 import './App.css'
 
-
 function App() {
+  const [themeSelection, setThemeSelection] = React.useState<ThemeSelection>(() => loadStoredThemeSelection())
+
+  React.useEffect(() => {
+    applyThemeSelection(themeSelection)
+
+    if (themeSelection !== 'system') return
+    return subscribeToSystemThemeChanges(() => {
+      applyThemeSelection('system')
+    })
+  }, [themeSelection])
+
   const tpe: CredentialItem[] = [
     { url: "https://www.microsoft.com/ja-jp/partner/jp-tpeaward2024?activetab=pivot:aitab", imageSource: tpeLogo },
   ]
@@ -37,44 +55,31 @@ function App() {
   ]
 
   return (
-    <div>
-      <Description />
-      <CredentialLine items={tpe} />
-      <CredentialLine items={microsoftProps} />
-      <CredentialLine items={githubProps} />
-      <SocialLink />
-      <BlogLink />
+    <main className="page">
+      <div className="page-toolbar" aria-label="Theme selector">
+        <ThemeSelector
+          value={themeSelection}
+          onChange={(selection) => {
+            setThemeSelection(selection)
+            storeThemeSelection(selection)
+          }}
+        />
+      </div>
+      <div className="page-grid">
+        <section className="page-profile" aria-label="Profile">
+          <Description />
+          <SocialLink />
+          <BlogLink />
+        </section>
 
-    </div>
+        <section className="page-credentials" aria-label="Credentials">
+          <CredentialLine items={tpe} />
+          <CredentialLine items={microsoftProps} />
+          <CredentialLine items={githubProps} />
+        </section>
+      </div>
+    </main>
   )
-  // const [count, setCount] = useState(0)
-
-  // return (
-  //   <>
-  //     <div>
-  //       <a href="https://vitejs.dev" target="_blank">
-  //         <img src={viteLogo} className="logo" alt="Vite logo" />
-  //       </a>
-  //       <a href="https://react.dev" target="_blank">
-  //         <img src={reactLogo} className="logo react" alt="React logo" />
-  //       </a>
-  //     </div>
-  //     <h1>Vite + React</h1>
-  //     <div className="card">
-  //       <button onClick={() => setCount((count) => count + 1)}>
-  //         count is {count}
-  //       </button>
-  //       <p>
-  //         Edit <code>src/App.tsx</code> and save to test HMR
-  //       </p>
-  //     </div>
-  //     <p className="read-the-docs">
-  //       Click on the Vite and React logos to learn more
-  //     </p>
-  //   </>
-  // )
-
-
 }
 
 export default App

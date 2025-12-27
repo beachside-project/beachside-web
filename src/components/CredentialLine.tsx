@@ -12,7 +12,7 @@ const CredentialLine: React.FC<CredentialLineProps> = (props) => {
     <div className="cerds-line-container">
       {props.items.map((item: CredentialItem) => {
         return (
-          <Credential imageSource={item.imageSource} url={item.url} />
+          <Credential key={item.url} imageSource={item.imageSource} url={item.url} />
         );
       })}
     </div>

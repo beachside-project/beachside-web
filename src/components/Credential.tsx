@@ -7,7 +7,7 @@ const Credential: React.FC<CredentialItem> = (props) => {
     <a className="cert-container"
       href={props.url}
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
     >
       <img
         src={props.imageSource}
