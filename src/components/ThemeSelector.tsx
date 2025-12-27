@@ -31,7 +31,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ value, onChange }) => {
   return (
     <button
       type="button"
-
+      className="theme-toggle"
       aria-label={`Toggle theme (current: ${currentThemeLabel})`}
       title={`Theme: ${currentThemeLabel}`}
       onClick={() => onChange(nextSelection(value))}
