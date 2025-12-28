@@ -83,6 +83,9 @@ body {
   background-color: var(--bg);
   position: relative;
   isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body::before {
